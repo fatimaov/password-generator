@@ -61,7 +61,7 @@ btnCopy.addEventListener('click', function() {
     if (pwOutput.innerHTML.length !== 0 && popover === null) {
         new bootstrap.Popover(btnCopy);
         btnCopy.click(); // triggers Bootstrap's internal toggle
-        navigator.clipboard.writeText(document.getElementById('pw-result').innerHTML);
+        navigator.clipboard.writeText(pwOutput.innerHTML);
         return;
     } 
     // If popover already exists, hide it manually
@@ -69,7 +69,7 @@ btnCopy.addEventListener('click', function() {
        // Manually hides the popover, but Bootstrap will re-show it
        // due to the same click event triggering the popover toggle.
        popover.hide();
-       navigator.clipboard.writeText(document.getElementById('pw-result').innerHTML);
+       navigator.clipboard.writeText(pwOutput.innerHTML);
        return;
     }
 })
