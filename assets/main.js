@@ -64,11 +64,10 @@ btnCopy.addEventListener('click', function() {
         navigator.clipboard.writeText(pwOutput.innerHTML);
         return;
     } 
-    // If popover already exists, hide it manually
+    // If popover already exists, briefly hide and re-trigger it for visual feedback
     if (pwOutput.innerHTML.length !== 0 && popover !== null) {
-       // Manually hides the popover, but Bootstrap will re-show it
-       // due to the same click event triggering the popover toggle.
        popover.hide();
+       btnCopy.click();
        navigator.clipboard.writeText(pwOutput.innerHTML);
        return;
     }
