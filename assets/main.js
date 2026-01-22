@@ -1,49 +1,75 @@
-
+// Imports the password generator function (default export)
 import passwordGenerator from "./password-generator.js";
 
-document.getElementById('btn-generate').addEventListener('click', function () {
-    console.log(document.getElementById('pw-length').value);
-    
-    if (document.getElementById('pw-length').value.trim() === '') {
-        const result = passwordGenerator();
-        document.getElementById('pw-result').innerHTML = result;
-    } else if ( document.getElementById('pw-length').value < 4 || document.getElementById('pw-length').value > 20) {
+// Cache DOM elements used across the app
+const btnGenerate = document.getElementById('btn-generate');
+const btnReset = document.getElementById('btn-reset');
+const btnCopy = document.getElementById('btn-copy');
+const pwOutput = document.getElementById('pw-result');
+
+
+// GENERATE BUTTON
+// Handles password generation based on valid length input
+btnGenerate.addEventListener('click', function () {
+    // Hide the copy popover if it is currently shown
+    const popover = bootstrap.Popover.getInstance(btnCopy);
+    if (popover !== null) {
+        popover.hide();
+    }
+
+    // Read and format the password length input
+    const pwLengthInput = document.getElementById('pw-length').value.trim();
+    // If no length is provided, generate a password with default length
+    if (pwLengthInput.length === 0) {
+        return pwOutput.innerHTML = passwordGenerator();
+    } 
+    // Validate length valid inputs
+    if (pwLengthInput < 4 || pwLengthInput > 20) {
         window.alert('Password length must be between 4 and 20 characters');
         return;
-    } 
-    const result = passwordGenerator(document.getElementById('pw-length').value);
-    document.getElementById('pw-result').innerHTML = result;
-
+    }
+    // Generate password with user-defined length
+    return pwOutput.innerHTML = passwordGenerator(pwLengthInput);
 })
 
-const pwField = document.getElementById('pw-field');
 
-document.getElementById('btn-reset').onclick = () => {
-    document.getElementById('pw-result').innerHTML = '';
-
-    const popover = bootstrap.Popover.getInstance(pwField);
-    if (popover) {
-        popover.dispose();
+// RESET BUTTON – password output & popover cleanup
+// Clears the generated password from the UI
+btnReset.addEventListener('click', function () {
+    return pwOutput.innerHTML = '';
+});
+// Disposes the copy popover instance if it exists
+btnReset.addEventListener('click', function() {
+    const popover = bootstrap.Popover.getInstance(btnCopy);
+    if (popover !== null) {
+        return popover.dispose();
     }
-    pwField.removeAttribute('data-bs-container');
-    pwField.removeAttribute('data-bs-toggle');
-    pwField.removeAttribute('data-bs-placement');
-    pwField.removeAttribute('data-bs-content');
+    return;
+})
 
 
-};
-
-document.getElementById('btn-copy').onclick = () => {
-    const popover = bootstrap.Popover.getInstance(pwField);
-    if (popover && document.getElementById('pw-result').innerHTML.length !== 0) {
+// COPY BUTTON
+// Copies the password to the clipboard and provides visual feedback via a Bootstrap popover
+btnCopy.addEventListener('click', function() {
+    const popover = bootstrap.Popover.getInstance(btnCopy);
+    // Do nothing if there is no password to copy
+    if (pwOutput.innerHTML.length === 0) {
+        return;
+    } 
+    // If a password exists and no popover instance yet:
+    // create it and re-trigger click so Bootstrap can show it
+    if (pwOutput.innerHTML.length !== 0 && popover === null) {
+        new bootstrap.Popover(btnCopy);
+        btnCopy.click(); // triggers Bootstrap's internal toggle
         navigator.clipboard.writeText(document.getElementById('pw-result').innerHTML);
-    } else if (document.getElementById('pw-result').innerHTML.length !== 0) {
-        navigator.clipboard.writeText(document.getElementById('pw-result').innerHTML);
-        pwField.dataset.bsContainer = 'body';
-        pwField.dataset.bsToggle = 'popover';
-        pwField.dataset.bsPlacement = 'right';
-        pwField.dataset.bsContent = 'Copied!';
-        new bootstrap.Popover(pwField);
-        pwField.click()
+        return;
+    } 
+    // If popover already exists, hide it manually
+    if (pwOutput.innerHTML.length !== 0 && popover !== null) {
+       // Manually hides the popover, but Bootstrap will re-show it
+       // due to the same click event triggering the popover toggle.
+       popover.hide();
+       navigator.clipboard.writeText(document.getElementById('pw-result').innerHTML);
+       return;
     }
-};
+})
