@@ -1,6 +1,3 @@
-// const promp = require('prompt-sync')();
-
-
 function passwordGenerator(passwordLength = 8) {
     const lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     const upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -70,53 +67,4 @@ function passwordGenerator(passwordLength = 8) {
 
 };
 
-// let input = promp('Please, enter number of characters (min 4): ');
-
-// while (input < 4) {
-//     input = promp('Invalid number. Please, enter number of characters (min 4): ');
-// } 
-
-// console.log(passwordGenerator(Number(input)));
-
-
-document.getElementById('btn-generate').addEventListener('click', function () {
-    if (document.getElementById('pw-length').value < 4 || document.getElementById('pw-length').value > 20) {
-        window.alert('Password length must be between 4 and 20 characters');
-        return;
-    }
-    const result = passwordGenerator(document.getElementById('pw-length').value);
-    document.getElementById('pw-result').innerHTML = result;
-
-})
-
-const pwField = document.getElementById('pw-field');
-
-document.getElementById('btn-reset').onclick = () => {
-    document.getElementById('pw-result').innerHTML = '';
-
-    const popover = bootstrap.Popover.getInstance(pwField);
-    if (popover) {
-        popover.dispose();
-    }
-    pwField.removeAttribute('data-bs-container');
-    pwField.removeAttribute('data-bs-toggle');
-    pwField.removeAttribute('data-bs-placement');
-    pwField.removeAttribute('data-bs-content');
-
-
-};
-
-document.getElementById('btn-copy').onclick = () => {
-    const popover = bootstrap.Popover.getInstance(pwField);
-    if (popover && document.getElementById('pw-result').innerHTML.length !== 0) {
-        navigator.clipboard.writeText(document.getElementById('pw-result').innerHTML);
-    } else if (document.getElementById('pw-result').innerHTML.length !== 0) {
-        navigator.clipboard.writeText(document.getElementById('pw-result').innerHTML);
-        pwField.dataset.bsContainer = 'body';
-        pwField.dataset.bsToggle = 'popover';
-        pwField.dataset.bsPlacement = 'right';
-        pwField.dataset.bsContent = 'Copied!';
-        new bootstrap.Popover(pwField);
-        pwField.click()
-    }
-};
+export default passwordGenerator;
