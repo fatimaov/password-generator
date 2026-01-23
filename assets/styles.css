@@ -1,4 +1,9 @@
 body {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+body {
     background-color: rgb(42, 42, 46);
     background-size: cover;
     background-repeat: no-repeat;

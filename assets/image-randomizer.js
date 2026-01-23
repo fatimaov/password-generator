@@ -1,3 +1,4 @@
+// Image data used for random background selection
 const imgData = [
     {
         credits: 'Photo by <a class="text-white-50" target="_blank" href="https://unsplash.com/@introspectivedsgn?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Erik Mclean</a> on <a class="text-white-50" target="_blank" href="https://unsplash.com/photos/a-body-of-water-surrounded-by-mountains-on-a-foggy-day-nF_826lMv6s?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>',
@@ -13,16 +14,24 @@ const imgData = [
     }
 ]
 
+// Preload all background images to avoid flicker on load
+imgData.forEach(img => {
+  const preload = new Image();
+  preload.src = img.imageUrl;
+});
 
+// Returns a random image object from the image data array
 function imgRandomizer() {
     return imgData[Math.floor(Math.random() * imgData.length)];
     
 }
 
+// Extracts the credits HTML from the selected image object
 function getCredits (randomImg) {
     return randomImg.credits;
 }
 
+// Extracts the image URL from the selected image object
 function getImgUrl (randomImg) {
     return randomImg.imageUrl;
 }

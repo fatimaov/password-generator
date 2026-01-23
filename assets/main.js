@@ -7,7 +7,7 @@ const btnGenerate = document.getElementById('btn-generate');
 const btnReset = document.getElementById('btn-reset');
 const btnCopy = document.getElementById('btn-copy');
 const pwOutput = document.getElementById('pw-result');
-const bodyImg = document.querySelector('body');
+const bodyImg = document.body;
 const blurImg = document.getElementById('bg-img-blur');
 const formImg = document.getElementById('img');
 const imgCredits = document.getElementById('photo-credits');
@@ -78,11 +78,21 @@ btnCopy.addEventListener('click', function() {
     }
 })
 
-
-window.addEventListener('load', function () {
+// RANDOM BACKGROUND IMAGE
+// Selects a random image and applies it across the UI
+function setRandomImg () {
+    // Pick a random image object (url + credits)
     const randomImg = imgRandomizer();
+    // Apply image as page background
     bodyImg.style.backgroundImage = `url(${getImgUrl(randomImg)})`;
+    document.body.style.opacity = 1;
+    // Apply same image to the blurred background layer
     blurImg.style.backgroundImage = `url(${getImgUrl(randomImg)})`;
+    // Set image source inside the img tag
     formImg.src = getImgUrl(randomImg);
+    // Update photo credits dynamically
     imgCredits.innerHTML = getCredits(randomImg);
-})
+}
+// Initialize random background on page load
+setRandomImg();
+
