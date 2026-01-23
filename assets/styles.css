@@ -58,6 +58,12 @@ h1 {
     height: auto;
 }
 
+.photo-credits {
+    bottom: 0;
+    font-size: .7rem;
+    opacity: .8;
+}
+
  label.input-group-text {
         font-size: .8rem;
     }
