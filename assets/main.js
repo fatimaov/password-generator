@@ -1,11 +1,16 @@
 // Imports the password generator function (default export)
 import passwordGenerator from "./password-generator.js";
+import { imgRandomizer, getCredits, getImgUrl } from "./image-randomizer.js";
 
 // Cache DOM elements used across the app
 const btnGenerate = document.getElementById('btn-generate');
 const btnReset = document.getElementById('btn-reset');
 const btnCopy = document.getElementById('btn-copy');
 const pwOutput = document.getElementById('pw-result');
+const bodyImg = document.querySelector('body');
+const blurImg = document.getElementById('bg-img-blur');
+const formImg = document.getElementById('img');
+const imgCredits = document.getElementById('photo-credits');
 
 
 // GENERATE BUTTON
@@ -71,4 +76,13 @@ btnCopy.addEventListener('click', function() {
        navigator.clipboard.writeText(pwOutput.innerHTML);
        return;
     }
+})
+
+
+window.addEventListener('load', function () {
+    const randomImg = imgRandomizer();
+    bodyImg.style.backgroundImage = `url(${getImgUrl(randomImg)})`;
+    blurImg.style.backgroundImage = `url(${getImgUrl(randomImg)})`;
+    formImg.src = getImgUrl(randomImg);
+    imgCredits.innerHTML = getCredits(randomImg);
 })
