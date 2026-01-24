@@ -6,6 +6,7 @@ import { imgRandomizer, getCredits, getImgUrl } from "./image-randomizer.js";
 const btnGenerate = document.getElementById('btn-generate');
 const btnReset = document.getElementById('btn-reset');
 const btnCopy = document.getElementById('btn-copy');
+const pwLengthInput = document.getElementById('pw-length');
 const pwOutput = document.getElementById('pw-result');
 const bodyImg = document.body;
 const blurImg = document.getElementById('bg-img-blur');
@@ -23,25 +24,26 @@ btnGenerate.addEventListener('click', function () {
     }
 
     // Read and format the password length input
-    const pwLengthInput = document.getElementById('pw-length').value.trim();
     // If no length is provided, generate a password with default length
-    if (pwLengthInput.length === 0) {
+    if (pwLengthInput.value.trim().length === 0) {
         return pwOutput.innerHTML = passwordGenerator();
     } 
     // Validate length valid inputs
-    if (pwLengthInput < 4 || pwLengthInput > 20) {
+    if (pwLengthInput.value.trim() < 4 || pwLengthInput.value.trim() > 20) {
         window.alert('Password length must be between 4 and 20 characters');
         return;
     }
     // Generate password with user-defined length
-    return pwOutput.innerHTML = passwordGenerator(pwLengthInput);
+    return pwOutput.innerHTML = passwordGenerator(pwLengthInput.value.trim());
 })
 
 
 // RESET BUTTON – password output & popover cleanup
 // Clears the generated password from the UI
 btnReset.addEventListener('click', function () {
-    return pwOutput.innerHTML = '';
+    pwOutput.innerHTML = '';
+    pwLengthInput.value = '8';
+    return;
 });
 // Disposes the copy popover instance if it exists
 btnReset.addEventListener('click', function() {
