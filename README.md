@@ -6,7 +6,7 @@ A small password generator web app built to solve a **real everyday need**: gene
 
 The app allows the user to generate a password based on a chosen length and includes simple interactions to generate, copy, and reset the result.
 
----
+
 
 ## 📌 About the project
 
@@ -14,7 +14,7 @@ This project was built to address a real use case while working on JavaScript lo
 
 The focus was on keeping the logic clear, separating responsibilities in the code, and designing an interface that is simple and functional, without unnecessary complexity.
 
----
+
 
 ## 🛠️ What I worked on
 
@@ -25,7 +25,7 @@ The focus was on keeping the logic clear, separating responsibilities in the cod
 - Visual design and layout concept  
 - Dynamic background logic executed on page load  
 
----
+
 
 ## ⚙️ Technologies
 
@@ -34,7 +34,7 @@ The focus was on keeping the logic clear, separating responsibilities in the cod
 - JavaScript  
 - Bootstrap  
 
----
+
 
 ## 🚀 Live demo
 
