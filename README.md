@@ -1,4 +1,4 @@
-[![Password Generator banner](./assets/img/post-img.png)](https://fatimaolea-pw-generator.vercel.app/)
+[![Password Generator banner](./assets/img/post-img.jpg)](https://fatimaolea-pw-generator.vercel.app/)
 
 # 🔐 Password Generator
 
