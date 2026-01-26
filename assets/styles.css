@@ -33,9 +33,8 @@ h1 {
 
 #pw-result {
     font-family: monospace;
+    font-size: 1.5rem;
 }
-
-
 
 .container-fluid {
     overflow: hidden;
@@ -65,26 +64,14 @@ h1 {
 .photo-credits {
     bottom: 0;
     font-size: .7rem;
-    
 }
 
- label.input-group-text {
-        font-size: .8rem;
-    }
-
-.input-group {
-    height: 40px;
+label.input-group-text {
+    font-size: 1.2rem;
 }
 
-@media (min-width: 576px) {
-    #pw-result {
-        font-size: 1.5rem;
-    }
-
-    label.input-group-text {
-        font-size: 1rem;
-    }
-    
+.input-group>.form-control {
+    min-width: 70px;
 }
 
 footer {
