@@ -13,6 +13,36 @@ const blurImg = document.getElementById('bg-img-blur');
 const formImg = document.getElementById('img');
 const imgCredits = document.getElementById('photo-credits');
 
+// Keep length input numeric only across browsers (Firefox allows non-digit chars while typing)
+function sanitizeLengthValue(value) {
+    return value.replace(/\D/g, '');
+}
+
+pwLengthInput.addEventListener('beforeinput', function (event) {
+    if (event.data !== null && /\D/.test(event.data)) {
+        event.preventDefault();
+    }
+});
+
+pwLengthInput.addEventListener('keydown', function (event) {
+    if (['e', 'E', '+', '-', '.'].includes(event.key)) {
+        event.preventDefault();
+    }
+});
+
+pwLengthInput.addEventListener('paste', function (event) {
+    const pastedText = event.clipboardData.getData('text');
+    if (/\D/.test(pastedText)) {
+        event.preventDefault();
+    }
+});
+
+pwLengthInput.addEventListener('input', function () {
+    const sanitizedValue = sanitizeLengthValue(pwLengthInput.value);
+    if (pwLengthInput.value !== sanitizedValue) {
+        pwLengthInput.value = sanitizedValue;
+    }
+});
 
 // GENERATE BUTTON
 // Handles password generation based on valid length input
@@ -23,18 +53,28 @@ btnGenerate.addEventListener('click', function () {
         popover.hide();
     }
 
-    // Read and format the password length input
-    // If no length is provided, generate a password with default length
-    if (pwLengthInput.value.trim().length === 0) {
-        return pwOutput.innerHTML = passwordGenerator();
+    // Read and validate the password length input
+    const lengthInput = pwLengthInput.value.trim();
+
+    if (lengthInput.length === 0) {
+        window.alert('Password length is required and must be a number between 4 and 20');
+        return;
     } 
+
+    const parsedLength = Number.parseInt(lengthInput, 10);
+
+    if (!Number.isInteger(parsedLength)) {
+        window.alert('Password length must be a number between 4 and 20');
+        return;
+    }
+
     // Validate length valid inputs
-    if (pwLengthInput.value.trim() < 4 || pwLengthInput.value.trim() > 20) {
+    if (parsedLength < 4 || parsedLength > 20) {
         window.alert('Password length must be between 4 and 20 characters');
         return;
     }
     // Generate password with user-defined length
-    return pwOutput.innerHTML = passwordGenerator(pwLengthInput.value.trim());
+    return pwOutput.innerHTML = passwordGenerator(parsedLength);
 })
 
 
