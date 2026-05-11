@@ -57,8 +57,7 @@ btnGenerate.addEventListener('click', function () {
     const lengthInput = pwLengthInput.value.trim();
 
     if (lengthInput.length === 0) {
-        window.alert('Password length is required and must be a number between 4 and 20');
-        return;
+        return pwOutput.innerHTML = passwordGenerator();
     } 
 
     const parsedLength = Number.parseInt(lengthInput, 10);
